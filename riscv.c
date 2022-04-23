@@ -229,6 +229,9 @@ void step(char *instruction)
                     for(int i = 1; i <= 3; i++) {
                         val += (ht_get(memory, addr+i) << (8*i));
                     }
+                } else {
+                    // sign extend to 32 bits
+                    val = (val & 0xFFFFFFFF) | ((val & 0x80) ? 0xFFFFFF00 : 0);
                 }
                 store_to_reg(rd, val); // LB (and LW)
             }
